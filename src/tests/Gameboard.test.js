@@ -46,7 +46,6 @@ it("should write ship board code onto the board", () => {
   let board = new Gameboard();
   board.placeShip(board.ships.Battleship, [2, 1], "v");
   board.placeShip(board.ships.Carrier, [7, 0], "h");
-  board.printBoard();
   expect(board.board[2][1]).toBe(board.ships.Battleship.boardCode);
   expect(board.board[3][1]).toBe(board.ships.Battleship.boardCode);
   expect(board.board[4][1]).toBe(board.ships.Battleship.boardCode);
@@ -56,4 +55,36 @@ it("should write ship board code onto the board", () => {
   expect(board.board[7][2]).toBe(board.ships.Carrier.boardCode);
   expect(board.board[7][3]).toBe(board.ships.Carrier.boardCode);
   expect(board.board[7][4]).toBe(board.ships.Carrier.boardCode);
+  expect(board.ships.Battleship.placedOnBoard).toBe(true);
+  expect(board.ships.Carrier.placedOnBoard).toBe(true);
+  expect(board.ships.Destroyer.placedOnBoard).toBe(false);
+});
+
+it("should hit empty cell and change it to zero", () => {
+  let board = new Gameboard();
+  expect(board.placeShip(board.ships.Battleship, [0, 0], "h")).toBe(true);
+  expect(board.receiveAttack([0, 1])).toBe(true);
+  expect(board.board[0][1]).toBe("B0");
+  expect(board.hits).toBe(1);
+  expect(board.receiveAttack([1, 2])).toBe(true);
+  expect(board.board[1][2]).toBe(0);
+  expect(board.hits).toBe(2);
+  expect(board.receiveAttack([1, 2])).toBe(false);
+  expect(board.board[1][2]).toBe(0);
+  expect(board.hits).toBe(2);
+  board.printBoard();
+});
+
+it("should check if all ships on board have been sunk", () => {
+  let board = new Gameboard();
+  board.ships.Battleship.hits = 4;
+  expect(board.checkIfAllShipsSunk()).toBe(false);
+  board.ships.Carrier.hits = 5;
+  expect(board.checkIfAllShipsSunk()).toBe(false);
+  board.ships.Destroyer.hits = 3;
+  expect(board.checkIfAllShipsSunk()).toBe(false);
+  board.ships.Submarine.hits = 3
+  expect(board.checkIfAllShipsSunk()).toBe(false);
+  board.ships["Patrol Boat"].hits = 2;
+  expect(board.checkIfAllShipsSunk()).toBe(true);
 });
