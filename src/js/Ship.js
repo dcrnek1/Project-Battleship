@@ -1,7 +1,8 @@
 class Ship {
-  constructor(length) {
+  constructor(length, boardCode) {
     this.length = length;
     this.hits = 0;
+    this.boardCode = boardCode ? boardCode : undefined;
   }
 
   hit() {
