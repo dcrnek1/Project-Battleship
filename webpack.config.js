@@ -12,6 +12,13 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.(?:js|mjs|cjs)$/,
+                exclude: /node_modules/,
+                use: {
+                  loader: 'babel-loader',
+                }
+            },
+            {
                 test: /\.css$/, // Apply loader only for .css files
                 use: ['style-loader', 'css-loader'] // Use both loaders: style-loader and css-loader
             }
@@ -20,7 +27,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/index.html', // Path to your HTML template file
-            title: 'Template title',
+            title: 'Project battleship',
         })
     ],
     devServer: {
