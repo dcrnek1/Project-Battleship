@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+body {
+  display: flex;
+  justify-content: center;
+  font-family: "Roboto", sans-serif;
+}
+
+.gameContainer {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 1em;
+}
+
+.gameBoards {
+  display: flex;
+  gap: 1em;
+}
+
+.gameBoard {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+}
+
+.row > div{
+  width: 24px;
+  height: 24px;
+}
+
+.row > .header-row {
+  font-size: 8px;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  color: rgba(0, 0, 0, 0.525);
+  border-right: none;
+  border-bottom: none;
+  box-sizing: border-box;
+  padding-bottom: 2px;
+}
+
+.row > .header-column {
+  font-size: 8px;
+  display: flex;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.525);
+  justify-content: right;
+  border-bottom: none;
+  border-right: none;
+  box-sizing: border-box;
+  padding-right: 3px;
+}
+.row div {
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  box-sizing: border-box;
+}
+
+.row > div:not(.header-column):not(.header-row):nth-of-type(2) {
+  border-left: 1px solid black
+}
+
+.row:not(.row-header):nth-child(2) > div:not(.header-column) {
+  border-top: 1px solid black;
+}
+
+
+.gameBoard:not(.pc) > .row > div:not([class]):hover {
+  background-color: antiquewhite;
+}
+
