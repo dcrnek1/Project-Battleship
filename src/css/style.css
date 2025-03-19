@@ -26,6 +26,18 @@ align-items: center;
 gap: 1em;
 }
 
+.info-message {
+  align-self: flex-start;
+  font-size: small;
+  height: 50px;
+  color: rgba(0, 0, 0, 0.452);
+  width: 300px;
+  border-radius: 10px;
+  border: 1px solid var(--color-red-light);
+  padding: 10px;
+  background-color: #fccdce59;
+}
+
 .gameBoards {
   display: flex;
   gap: 1em;
