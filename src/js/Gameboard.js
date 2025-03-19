@@ -4,17 +4,21 @@ class Gameboard {
   constructor() {
     this.board = new Array(10).fill(null).map(() => new Array(10).fill(1)); //1 = free, 0 = missed shot
     this.ships = {
-      Carrier: new Ship(5, "C"), //C = Placed ship, C0 = Hit ship
-      Battleship: new Ship(4, "B"),
-      Destroyer: new Ship(3, "D"),
-      Submarine: new Ship(3, "S"),
-      "Patrol Boat": new Ship(2, "P"),
+      C: new Ship(5, "C"), //C = Placed ship, C0 = Hit ship
+      B: new Ship(4, "B"),
+      D: new Ship(3, "D"),
+      S: new Ship(3, "S"),
+      P: new Ship(2, "P"),
+      Z: new Ship(1, "Z"),
     };
     this.hits = 0;
   }
 
   /** @param {Ship} ship*/
   placeShip(ship, coordinates, orientation = "h") {
+    console.log(orientation);
+    console.log(coordinates);
+    console.log(ship);
     //h = horizontal, v = vertical
     //For given coordinate and ship length check:
     if (orientation === "h" && ship.length + coordinates[1] <= 10) {

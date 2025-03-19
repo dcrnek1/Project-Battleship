@@ -4,8 +4,8 @@ import Player from './js/Player';
 
 //Gameplay
 //Create new player (PC and Player)
-let playerUser = new Player('user');
-let playerPc = new Player('pc');
+export let playerUser = new Player('user');
+export let playerPc = new Player('pc');
 
 //Initialize player and pc grid and ship selector
 dom.initializeGrid(playerUser.gameBoard.board, 'player');

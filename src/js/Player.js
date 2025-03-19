@@ -5,6 +5,10 @@ class Player {
     this.type = type;
     this.gameBoard = new Gameboard();
   }
+
+  restart() {
+    this.gameBoard = new Gameboard();
+  }
 }
 
 export default Player;
