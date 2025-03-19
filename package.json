@@ -28,6 +28,7 @@
     "webpack-dev-server": "^5.0.4"
   },
   "dependencies": {
-    "feather-icons": "^4.29.2"
+    "feather-icons": "^4.29.2",
+    "node": "^20.19.0"
   }
 }

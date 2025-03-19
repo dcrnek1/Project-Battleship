@@ -1,9 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
+:root {
+  --cell-size: 28px;
+  --border-color: rgba(0, 0, 0, 0.116);;
+  --text-color-grey: rgba(0, 0, 0, 0.267);
+  --text-size-smallest: 10px;
+  --cell-hover-color: #219ebc;
+  --color-red: #d00000;
+  --color-red-light: #ec8385;
+  --color-blue-darker: #00a8e8;
+  --color-beige: #ffb703;
+}
+
 body {
   display: flex;
   justify-content: center;
   font-family: "Roboto", sans-serif;
+  background-color: #fffaff;
 }
 
 .gameContainer {
@@ -21,6 +34,7 @@ gap: 1em;
 .gameBoard {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .row {
@@ -28,16 +42,16 @@ gap: 1em;
 }
 
 .row > div{
-  width: 24px;
-  height: 24px;
+  width: var(--cell-size);
+  height: var(--cell-size);
 }
 
 .row > .header-row {
-  font-size: 8px;
+  font-size: var(--text-size-smallest);
   display: flex;
   align-items: end;
   justify-content: center;
-  color: rgba(0, 0, 0, 0.525);
+  color: var(--text-color-grey);
   border-right: none;
   border-bottom: none;
   box-sizing: border-box;
@@ -45,10 +59,10 @@ gap: 1em;
 }
 
 .row > .header-column {
-  font-size: 8px;
+  font-size: var(--text-size-smallest);
   display: flex;
   align-items: center;
-  color: rgba(0, 0, 0, 0.525);
+  color: var(--text-color-grey);
   justify-content: right;
   border-bottom: none;
   border-right: none;
@@ -56,21 +70,38 @@ gap: 1em;
   padding-right: 3px;
 }
 .row div {
-  border-bottom: 1px solid black;
-  border-right: 1px solid black;
+  border-bottom: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
   box-sizing: border-box;
 }
 
 .row > div:not(.header-column):not(.header-row):nth-of-type(2) {
-  border-left: 1px solid black
+  border-left: 1px solid var(--border-color);
 }
 
 .row:not(.row-header):nth-child(2) > div:not(.header-column) {
-  border-top: 1px solid black;
+  border-top: 1px solid var(--border-color);
 }
 
 
-.gameBoard:not(.pc) > .row > div:not([class]):hover {
-  background-color: antiquewhite;
+.gameBoard.active:not(.player) > .row > div:not([class]):hover {
+  background-color: var(--color-red);
+  background-clip: content-box;
+  padding: 12px;
 }
 
+.gameBoard > .row > .ship {
+  background-color: var(--color-blue-darker);
+  border-color: white;
+}
+
+.gameBoard.pc > .row > .ship {
+  background-color: var(--color-beige);
+}
+
+.hit {
+  background-image: url("../assets/explode1.png");
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: 4px 4px;
+}
