@@ -9,16 +9,12 @@ class Gameboard {
       D: new Ship(3, "D"),
       S: new Ship(3, "S"),
       P: new Ship(2, "P"),
-      Z: new Ship(1, "Z"),
     };
     this.hits = 0;
   }
 
   /** @param {Ship} ship*/
   placeShip(ship, coordinates, orientation = "h") {
-    console.log(orientation);
-    console.log(coordinates);
-    console.log(ship);
     //h = horizontal, v = vertical
     //For given coordinate and ship length check:
     if (orientation === "h" && ship.length + coordinates[1] <= 10) {
@@ -32,7 +28,7 @@ class Gameboard {
       } else {
         return false;
       }
-    } else if (orientation === "v" && ship.length + coordinates[0] <= 10) {
+    } else if (ship !== undefined && orientation === "v" && ship.length + coordinates[0] <= 10) {
       // 3. Vertical - If length + y is bigger than 10 [y, x] y (vertical) coordinates then return false
       if (this.checkFreeSpaces(coordinates, ship.length, orientation)) {
         for (let i = coordinates[0]; i < ship.length + coordinates[0]; i++) {
@@ -107,6 +103,25 @@ class Gameboard {
       },
       true
     );
+  }
+
+  checkIfAllShipsPlaced() {
+    return Object.values(this.ships).reduce((prev, current, index, array) => {
+      return prev === false ? false : current.placedOnBoard;
+    }, true)
+  }
+
+  automaticShipPlacement() {
+    Object.values(this.ships).forEach((ship) => {
+      while (ship.placedOnBoard === false) {
+        let coord1 = Math.floor(Math.random() * 10);
+        let coord2 = Math.floor(Math.random() * 10);
+        let orientationArray = ["h", "v"];
+        let randomOrientationIndex = Math.floor(Math.random() * orientationArray.length);
+        let orientation = orientationArray[randomOrientationIndex]
+        this.placeShip(ship,[coord1, coord2], orientation);
+      }
+    })
   }
 
   printBoard() {

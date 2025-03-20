@@ -3,6 +3,7 @@ import * as main from '../index';
 export let buttonRotate = document.querySelector("#rotate");
 export let buttonRestart = document.querySelector("#restart");
 export let buttonStart = document.querySelector("#start");
+export let buttonAutoPlace = document.querySelector("#autoplace");
 export let gameSettings = document.querySelector(".game-settings");
 export let shipsSelector = document.querySelector(".ships");
 export let shipsShip = document.querySelectorAll(".ships > .ship");
@@ -30,15 +31,26 @@ buttonRestart.addEventListener('click', () => {
 
     initializeGrid(main.playerPc.gameBoard.board, "pc")
     initializeGrid(main.playerUser.gameBoard.board, "player")
-    initializeShipSelector(main.playerUser.gameBoard.ships)
+    initializeShipSelector(main.playerUser.gameBoard.ships);
+
+    buttonRotate.removeAttribute('disabled');
+    buttonAutoPlace.removeAttribute('disabled');
+    buttonStart.setAttribute('disabled', 'true')
+
+    
+    changeInfoMessage("It is your time to place ships on your board. Use drag and drop.")
 })
 
-function selectShip(shipElement, shipsElement) {
-  shipsElement.forEach((e) => {
-    e.classList.remove("selected");
-  });
-  shipElement.classList.add("selected");
-}
+buttonAutoPlace.addEventListener('click', () => {
+    main.playerUser.gameBoard.automaticShipPlacement();
+    initializeGrid(main.playerUser.gameBoard.board, "player")
+    initializeShipSelector(main.playerUser.gameBoard.ships);
+    
+    buttonRotate.setAttribute("disabled", "true")
+    buttonAutoPlace.setAttribute("disabled", "true")
+    buttonStart.removeAttribute("disabled");
+    changeInfoMessage("Time to start the game by pressing Start game button down there.")
+})
 
 //eventHandlers
 let draggedElement = null;
@@ -68,13 +80,12 @@ if (!gridArray || !player) return;
     HTMLBoard += `<div class="header-column">${index1 + 1}</div>`;
     value1.map((value2, index2) => {
         let classes = value2 != 1 ? "ship" : "";
-      HTMLBoard += `<div class="${classes}" coord1="${index1}" coord2="${index2}"></div>`;
+      HTMLBoard += `<div ${classes ? `class="`+ classes + `"` : ``} coord1="${index1}" coord2="${index2}"></div>`;
     });
     HTMLBoard += `</div>`;
   });
 
   if (player === "player") {
-    console.log(gridArray);
     document.querySelectorAll(".gameBoard.player > .row:not(.row-header)").forEach((e) => e.remove());
     rowHeaderPlayer.insertAdjacentHTML("afterEnd", HTMLBoard);
     let gridCells = document.querySelectorAll(".gameBoard.player > .row > div[coord1]");
@@ -123,5 +134,15 @@ export function placeShipOnBoard(shipElement, shipObject, targetElement, orienta
     let coord2 = parseInt(targetElement.getAttribute('coord2'));
     main.playerUser.gameBoard.placeShip(shipObject, [coord1, coord2], orientation)
     initializeShipSelector(main.playerUser.gameBoard.ships);
-    initializeGrid(main.playerUser.gameBoard.board, "player")
+    initializeGrid(main.playerUser.gameBoard.board, "player");
+    if (main.playerUser.gameBoard.checkIfAllShipsPlaced()) {
+        buttonRotate.setAttribute("disabled", "true")
+        buttonAutoPlace.setAttribute("disabled", "true")
+        buttonStart.removeAttribute("disabled");
+        changeInfoMessage("Time to start the game by pressing Start game button down there.")
+    }
+}
+
+export function changeInfoMessage(message) {
+    document.querySelector(".alert-info").innerHTML = message;
 }
