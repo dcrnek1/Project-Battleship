@@ -113,12 +113,12 @@ gap: 1em;
   border-left: 1px solid var(--border-color);
 }
 
-.row:nth-of-type(3) > div:not(.header-column) {
+.row:nth-of-type(2) > div:not(.header-column) {
   border-top: 1px solid var(--border-color);
 }
 
 
-.gameBoard.active:not(.player) > .row > div:not(.hit):hover {
+.gameBoard.active:not(.player) > .grid > .row > div:not(.hit):not(.header-row):not(.header-column):hover {
   /* background-color: var(--color-red);
   background-clip: content-box;
   padding: 12px; */
@@ -136,20 +136,20 @@ gap: 1em;
   background-color: #00a8e8;
 }
 
-.gameBoard > .row > .ship {
+.gameBoard > .grid > .row > .ship {
   background-color: var(--color-blue-darker);
   border-color: white;
 }
 
-.gameBoard.pc > .row > .ship {
+.gameBoard.pc > .grid > .row > .ship {
   background-color: var(--color-beige);
 }
 
-.gameBoard.pc > .row > .ship.hit {
+.gameBoard.pc > .grid > .row > .ship.hit {
   background-color: var(--color-beige-faded);
 }
 
-.gameBoard.player > .row > .ship.hit {
+.gameBoard.player > .grid > .row > .ship.hit {
   background-color: var(--color-blue-darker-faded);
 }
 
@@ -243,4 +243,30 @@ button:not([disabled]):hover {
 .flex-left {
   align-self: flex-start;
   padding-top: 15px;
+}
+
+.gameBoard.active > .grid {
+  position: relative;
+}
+
+.gameBoard.active > .grid:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-left: var(--cell-size);
+  margin-top: var(--cell-size);
+  border-radius: 5px;
+  border: 2px solid #00c9a7;
+  box-shadow: 0px 0px 3px #00c9a7;
+  z-index: -1;
+  opacity: 0.7;
+  animation: 800ms ease-in-out;
+}
+
+.gameBoard.active > div:first-of-type {
+  color: #00c9a7;
 }

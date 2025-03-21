@@ -10,4 +10,5 @@ export let playerPc = new Player('pc');
 //Initialize player and pc grid and ship selector
 dom.initializeGrid(playerUser.gameBoard.board, 'player');
 dom.initializeGrid(playerPc.gameBoard.board, 'pc');
+playerPc.gameBoard.automaticShipPlacement();
 dom.initializeShipSelector(playerUser.gameBoard.ships);
