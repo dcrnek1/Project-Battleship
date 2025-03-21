@@ -47,6 +47,9 @@ buttonRestart.addEventListener("click", () => {
   gameBoardPc.classList.remove("active");
   main.playerPc.gameBoard.automaticShipPlacement();
 
+  document.querySelector(".alert-info").classList.remove("green");
+  document.querySelector(".alert-info").classList.remove("red");
+
   changeInfoMessage(
     "It's your time to place ships on your board. Use drag and drop."
   );
@@ -82,6 +85,7 @@ function clickComputerGrid(element) {
       gameBoardPlayer.classList.add("active");
       if (main.playerPc.gameBoard.checkIfAllShipsSunk()) {
         endGame("You won!");
+        document.querySelector(".alert-info").classList.add("green");
         gameBoardPlayer.classList.remove("active")
         return true;
       }
@@ -98,10 +102,11 @@ function clickComputerGrid(element) {
       gameBoardPlayer.classList.remove('active');
       if (main.playerUser.gameBoard.checkIfAllShipsSunk()) {
         endGame("Computer has won :(");
+        document.querySelector(".alert-info").classList.add("red");
         gameBoardPc.classList.remove("active")
         return true;
       }
-    }, 100);
+    }, 1000);
   }
 }
 

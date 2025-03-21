@@ -30,6 +30,37 @@ body {
   border-radius: 0.5em;
   background-color: rgba(247, 247, 247, 0.537);
   color: rgba(0, 0, 0, 0.548);
+  position: relative;
+}
+
+.alert.green::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 5px;
+  border: 2px solid #00c9a7;
+  box-shadow: 0px 0px 3px #00c9a7;
+  z-index: -1;
+  background-color: #00c9a762;
+}
+
+.alert.red::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 5px;
+  border: 2px solid #c90000;
+  box-shadow: 0px 0px 3px #c90000;
+  z-index: -1;
+  background-color: #c9000067;
 }
 
 .gameContainer {
